@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosechas - Sistema Agropecuario</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <div data-component="header"></div>
+
+    <!-- Navigation Component -->
+    <div data-component="nav"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- ========== SECCIÓN: COSECHAS (DETALLE) ========== -->
+            <section id="section-cosechas" class="section active">
+                <div class="section-header">
+                    <h2>Gestión de Cosechas</h2>
+                    <button class="btn btn-primary" id="btn-crear-cosecha">
+                        Crear Cosecha
+                    </button>
+                </div>
+
+                <!-- Búsqueda Individual -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Buscar Cosecha Individual</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-group">
+                            <input type="text" id="input-buscar-cosecha-id" class="form-control" placeholder="Ingrese ID de la cosecha...">
+                            <button class="btn btn-info" id="btn-buscar-cosecha-individual">
+                                Buscar Cosecha
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultado de Búsqueda Individual -->
+                <div id="resultado-busqueda-cosecha" class="card hidden">
+                    <div class="card-header">
+                        <h3>Información de la Cosecha</h3>
+                        <button class="btn-close" id="btn-cerrar-resultado-cosecha">&times;</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="text" id="resultado-cosecha-id" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Producto ID</label>
+                                <input type="text" id="resultado-cosecha-producto" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Fecha de Cosecha</label>
+                                <input type="text" id="resultado-cosecha-fecha" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Cantidad Recolectada (kg)</label>
+                                <input type="text" id="resultado-cosecha-cantidad" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Calidad del Producto</label>
+                                <input type="text" id="resultado-cosecha-calidad" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <input type="text" id="resultado-cosecha-estado" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Número de Trabajadores</label>
+                                <input type="text" id="resultado-cosecha-trabajadores" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Costo Mano de Obra ($)</label>
+                                <input type="text" id="resultado-cosecha-costo" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Condiciones Climáticas</label>
+                                <input type="text" id="resultado-cosecha-clima" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            <textarea id="resultado-cosecha-observaciones" class="form-control" rows="3" readonly></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-warning" id="btn-editar-desde-busqueda-cosecha">
+                                Editar Cosecha
+                            </button>
+                            <button type="button" class="btn btn-danger" id="btn-eliminar-desde-busqueda-cosecha">
+                                Eliminar Cosecha
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros por lista -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Listar Cosechas con Filtros</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-group">
+                            <button class="btn btn-secondary" id="btn-listar-cosechas">
+                                Listar Todas
+                            </button>
+                            <select id="select-calidad-cosecha" class="form-control">
+                                <option value="">Filtrar por calidad...</option>
+                            </select>
+                            <button class="btn btn-info" id="btn-buscar-calidad">
+                                Filtrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario CREAR Cosecha -->
+                <div id="form-crear-cosecha-container" class="card hidden">
+                    <div class="card-header">
+                        <h3>Crear Nueva Cosecha</h3>
+                        <button class="btn-close" id="btn-cerrar-crear-cosecha">&times;</button>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-crear-cosecha">
+                            <div class="form-group">
+                                <label for="crear-cosecha-producto">Producto <span class="required">*</span></label>
+                                <select id="crear-cosecha-producto" class="form-control" required>
+                                    <option value="">Seleccionar producto...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="crear-cosecha-fecha">Fecha de Cosecha <span class="required">*</span></label>
+                                    <input type="datetime-local" id="crear-cosecha-fecha" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="crear-cosecha-cantidad">Cantidad Recolectada (kg) <span class="required">*</span></label>
+                                    <input type="number" id="crear-cosecha-cantidad" class="form-control"
+                                           min="1" step="1" required placeholder="Ej: 2500">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="crear-cosecha-calidad">Calidad del Producto <span class="required">*</span></label>
+                                    <select id="crear-cosecha-calidad" class="form-control" required>
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="crear-cosecha-estado">Estado</label>
+                                    <select id="crear-cosecha-estado" class="form-control">
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="crear-cosecha-trabajadores">Número de Trabajadores</label>
+                                    <input type="number" id="crear-cosecha-trabajadores" class="form-control"
+                                           min="1" step="1" placeholder="Ej: 8">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="crear-cosecha-costo">Costo Mano de Obra ($)</label>
+                                    <input type="number" id="crear-cosecha-costo" class="form-control"
+                                           min="0" step="1000" placeholder="Ej: 960000">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="crear-cosecha-clima">Condiciones Climáticas</label>
+                                <select id="crear-cosecha-clima" class="form-control">
+                                    <option value="">Seleccionar...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="crear-cosecha-observaciones">Observaciones</label>
+                                <textarea id="crear-cosecha-observaciones" class="form-control" rows="3"
+                                          placeholder="Ingrese observaciones adicionales..."></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">
+                                    Crear Cosecha
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="btn-limpiar-crear-cosecha">
+                                    Limpiar
+                                </button>
+                                <button type="button" class="btn btn-danger" id="btn-cancelar-crear-cosecha">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Formulario EDITAR Cosecha -->
+                <div id="form-editar-cosecha-container" class="card hidden">
+                    <div class="card-header">
+                        <h3>Editar Cosecha</h3>
+                        <button class="btn-close" id="btn-cerrar-editar-cosecha">&times;</button>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-editar-cosecha">
+                            <input type="hidden" id="editar-cosecha-id">
+
+                            <div class="form-group">
+                                <label for="editar-cosecha-producto">Producto <span class="required">*</span></label>
+                                <select id="editar-cosecha-producto" class="form-control" required>
+                                    <option value="">Seleccionar producto...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="editar-cosecha-fecha">Fecha de Cosecha <span class="required">*</span></label>
+                                    <input type="datetime-local" id="editar-cosecha-fecha" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="editar-cosecha-cantidad">Cantidad Recolectada (kg) <span class="required">*</span></label>
+                                    <input type="number" id="editar-cosecha-cantidad" class="form-control"
+                                           min="1" step="1" required placeholder="Ej: 2500">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="editar-cosecha-calidad">Calidad del Producto <span class="required">*</span></label>
+                                    <select id="editar-cosecha-calidad" class="form-control" required>
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="editar-cosecha-estado">Estado</label>
+                                    <select id="editar-cosecha-estado" class="form-control">
+                                        <option value="">Seleccionar...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="editar-cosecha-trabajadores">Número de Trabajadores</label>
+                                    <input type="number" id="editar-cosecha-trabajadores" class="form-control"
+                                           min="1" step="1" placeholder="Ej: 8">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="editar-cosecha-costo">Costo Mano de Obra ($)</label>
+                                    <input type="number" id="editar-cosecha-costo" class="form-control"
+                                           min="0" step="1000" placeholder="Ej: 960000">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="editar-cosecha-clima">Condiciones Climáticas</label>
+                                <select id="editar-cosecha-clima" class="form-control">
+                                    <option value="">Seleccionar...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="editar-cosecha-observaciones">Observaciones</label>
+                                <textarea id="editar-cosecha-observaciones" class="form-control" rows="3"
+                                          placeholder="Ingrese observaciones adicionales..."></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">
+                                    Actualizar Cosecha
+                                </button>
+                                <button type="button" class="btn btn-danger" id="btn-cancelar-editar-cosecha">
+                                    Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabla de Cosechas -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lista de Cosechas</h3>
+                        <span id="cosechas-contador" class="badge">0 cosechas</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="tabla-cosechas" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Fecha</th>
+                                        <th>Producto</th>
+                                        <th>Cantidad (kg)</th>
+                                        <th>Calidad</th>
+                                        <th>Trabajadores</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-cosechas-body">
+                                    <tr>
+                                        <td colspan="7" class="text-center">
+                                            Cargando cosechas...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div data-component="footer"></div>
+
+    <!-- Modales Globales -->
+    <div id="modal-loading" class="modal">
+        <div class="modal-content loading-content">
+            <div class="spinner"></div>
+            <p>Cargando...</p>
+        </div>
+    </div>
+
+    <div id="modal-confirmacion" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h3>Confirmación</h3>
+            <p id="modal-mensaje">¿Estás seguro?</p>
+            <div class="modal-actions">
+                <button class="btn btn-danger" id="modal-confirmar">Confirmar</button>
+                <button class="btn btn-secondary" id="modal-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="../js/components-loader.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/app.js"></script>
+</body>
+</html>

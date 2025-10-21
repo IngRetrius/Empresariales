@@ -1,0 +1,71 @@
+/* ========================================
+   COMPONENTE: CARDS
+   ======================================== */
+
+.card {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-xl);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    animation: fadeInUp var(--transition-base) var(--ease-smooth);
+}
+
+/* ===== HOVER EFFECT ===== */
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+/* ===== CARD HEADER ===== */
+.card-header {
+    background: var(--gradient-primary);
+    color: white;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de brillo sutil */
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.card:hover .card-header::before {
+    left: 100%;
+}
+
+.card-header h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-tight);
+}
+
+/* ===== CARD BODY ===== */
+.card-body {
+    padding: var(--spacing-xl);
+}
+
+/* ===== VARIANTES CON BORDES ===== */
+.card-border-primary {
+    border-top: 4px solid var(--color-primary);
+}
+
+.card-border-success {
+    border-top: 4px solid var(--color-success);
+}
+
+.card-border-danger {
+    border-top: 4px solid var(--color-danger);
+}

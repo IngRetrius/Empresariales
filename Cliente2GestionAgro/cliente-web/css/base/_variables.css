@@ -1,0 +1,137 @@
+/* ========================================
+   VARIABLES CSS - SISTEMA DE DISEÑO
+   Universidad de Ibagué
+   ======================================== */
+
+/* Importar Google Fonts - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* ===== COLORES PRINCIPALES ===== */
+    --color-primary: #2E7D32;
+    --color-primary-dark: #1B5E20;
+    --color-primary-light: #4CAF50;
+    --color-primary-lighter: #81C784;
+    --color-secondary: #558B2F;
+    --color-accent: #FF9800;
+
+    /* ===== GRADIENTES ===== */
+    --gradient-primary: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+    --gradient-primary-animated: linear-gradient(135deg, #2E7D32 0%, #4CAF50 50%, #66BB6A 100%);
+    --gradient-primary-reverse: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    --gradient-subtle: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+
+    /* ===== COLORES DE ESTADO ===== */
+    --color-success: #4CAF50;
+    --color-success-dark: #388E3C;
+    --color-warning: #FF9800;
+    --color-warning-dark: #F57C00;
+    --color-danger: #F44336;
+    --color-danger-dark: #D32F2F;
+    --color-info: #2196F3;
+    --color-info-dark: #1976D2;
+
+    /* ===== COLORES NEUTRALES ===== */
+    --color-background: #F8F9FA;
+    --color-surface: #FFFFFF;
+    --color-surface-elevated: #FAFAFA;
+    --color-text: #212121;
+    --color-text-secondary: #757575;
+    --color-text-tertiary: #9E9E9E;
+    --color-border: #E0E0E0;
+    --color-border-light: #EEEEEE;
+    --color-hover: #F5F5F5;
+    --color-divider: #BDBDBD;
+
+    /* ===== SOMBRAS MEJORADAS ===== */
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 40px rgba(0,0,0,0.2), 0 8px 16px rgba(0,0,0,0.15);
+    --shadow-2xl: 0 25px 50px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.2);
+
+    /* Sombras de color */
+    --shadow-primary: 0 8px 16px rgba(46, 125, 50, 0.3);
+    --shadow-success: 0 8px 16px rgba(76, 175, 80, 0.3);
+    --shadow-danger: 0 8px 16px rgba(244, 67, 54, 0.3);
+
+    /* ===== GLASSMORPHISM ===== */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-bg-strong: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-blur: 10px;
+
+    /* ===== OVERLAYS ===== */
+    --overlay-dark: rgba(0, 0, 0, 0.5);
+    --overlay-darker: rgba(0, 0, 0, 0.7);
+    --overlay-light: rgba(255, 255, 255, 0.9);
+
+    /* ===== BORDES ===== */
+    --border-radius-xs: 4px;
+    --border-radius-sm: 6px;
+    --border-radius: 8px;
+    --border-radius-md: 10px;
+    --border-radius-lg: 12px;
+    --border-radius-xl: 16px;
+    --border-radius-2xl: 20px;
+    --border-radius-full: 9999px;
+
+    /* ===== ESPACIADO ===== */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 64px;
+
+    /* ===== TIPOGRAFÍA ===== */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-size-xs: 0.75rem;      /* 12px */
+    --font-size-sm: 0.875rem;     /* 14px */
+    --font-size-base: 1rem;       /* 16px */
+    --font-size-lg: 1.125rem;     /* 18px */
+    --font-size-xl: 1.25rem;      /* 20px */
+    --font-size-2xl: 1.5rem;      /* 24px */
+    --font-size-3xl: 2rem;        /* 32px */
+    --font-size-4xl: 2.5rem;      /* 40px */
+
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+
+    --letter-spacing-tight: -0.02em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.02em;
+
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    /* ===== TRANSICIONES Y TIMING ===== */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Timing functions personalizadas */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+    /* ===== Z-INDEX LAYERS ===== */
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 300;
+    --z-modal-backdrop: 900;
+    --z-modal: 1000;
+    --z-toast: 2000;
+    --z-tooltip: 3000;
+}

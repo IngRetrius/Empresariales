@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas - Sistema Agropecuario</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <div data-component="header"></div>
+
+    <!-- Navigation Component -->
+    <div data-component="nav"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- ========== SECCIÓN: ESTADÍSTICAS ========== -->
+            <section id="section-estadisticas" class="section active">
+                <div class="section-header">
+                    <h2>Estadísticas del Sistema</h2>
+                    <button class="btn btn-primary" id="btn-actualizar-estadisticas">
+                        Actualizar
+                    </button>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="stat-total-productos">0</h3>
+                            <p>Total Productos</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="stat-total-cosechas">0</h3>
+                            <p>Total Cosechas</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="12" y1="20" x2="12" y2="10"></line>
+                                <line x1="18" y1="20" x2="18" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="16"></line>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="stat-total-kg">0</h3>
+                            <p>Total Recolectado (kg)</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="stat-producto-top">-</h3>
+                            <p>Producto con más Cosechas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Información del Servidor</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="info-servidor" class="server-info">
+                            <!-- Se llena dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== SECCIÓN: ACERCA DE ========== -->
+            <section id="section-acerca-de" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Acerca del Sistema</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="about-content">
+                            <h3>Sistema de Gestión Agropecuaria</h3>
+                            <p class="version-info">Versión 2.0.0</p>
+
+                            <div class="about-section">
+                                <h4>Universidad</h4>
+                                <p><strong>Universidad de Ibagué</strong></p>
+                                <p>Facultad de Ingeniería</p>
+                                <p>Curso: Desarrollo de Aplicaciones Empresariales</p>
+                                <p>Año: 2025</p>
+                            </div>
+
+                            <div class="about-section">
+                                <h4>Equipo de Desarrollo</h4>
+                                <ul class="team-list">
+                                    <li>Juan Camilo Perea Possos</li>
+                                </ul>
+                            </div>
+
+                            <div class="about-section">
+                                <h4>Tecnologías Utilizadas</h4>
+                                <div class="tech-stack">
+                                    <span class="tech-badge">HTML5</span>
+                                    <span class="tech-badge">CSS3</span>
+                                    <span class="tech-badge">JavaScript ES6+</span>
+                                    <span class="tech-badge">REST API</span>
+                                    <span class="tech-badge">Java Spring Boot</span>
+                                </div>
+                            </div>
+
+                            <div class="about-section">
+                                <h4>Arquitectura del Sistema</h4>
+                                <p>Sistema distribuido con arquitectura cliente-servidor:</p>
+                                <ul>
+                                    <li><strong>Servidor:</strong> API REST en Java Spring Boot (Puerto 8081)</li>
+                                    <li><strong>Cliente 1:</strong> Aplicación Windows Forms en C#</li>
+                                    <li><strong>Cliente 2:</strong> Aplicación Web HTML/JS/CSS</li>
+                                </ul>
+                            </div>
+
+                            <div class="about-section">
+                                <h4>Funcionalidades Principales</h4>
+                                <ul>
+                                    <li>Gestión completa de productos agrícolas (CRUD)</li>
+                                    <li>Gestión de cosechas asociadas a productos</li>
+                                    <li>Relación maestro-detalle entre productos y cosechas</li>
+                                    <li>Búsquedas y filtros avanzados</li>
+                                    <li>Estadísticas del sistema</li>
+                                    <li>Interoperabilidad entre múltiples clientes</li>
+                                </ul>
+                            </div>
+
+                            <div class="about-section">
+                                <h4>Contacto</h4>
+                                <p>Para más información, contactar a:</p>
+                                <p><strong>Profesor:</strong> Carlos Lugo</p>
+                                <p><strong>Email:</strong> carlos.lugo@unibague.edu.co</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div data-component="footer"></div>
+
+    <!-- Modales Globales -->
+    <div id="modal-loading" class="modal">
+        <div class="modal-content loading-content">
+            <div class="spinner"></div>
+            <p>Cargando...</p>
+        </div>
+    </div>
+
+    <div id="modal-confirmacion" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h3>Confirmación</h3>
+            <p id="modal-mensaje">¿Estás seguro?</p>
+            <div class="modal-actions">
+                <button class="btn btn-danger" id="modal-confirmar">Confirmar</button>
+                <button class="btn btn-secondary" id="modal-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="../js/components-loader.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+/* ========================================
+   UTILIDADES DE ANIMACIÓN
+   ======================================== */
+
+/* ===== CLASES DE ANIMACIÓN APLICABLES ===== */
+.animate-fadeIn { animation: fadeIn var(--transition-base) var(--ease-smooth); }
+.animate-fadeOut { animation: fadeOut var(--transition-base) var(--ease-smooth); }
+.animate-fadeInUp { animation: fadeInUp var(--transition-base) var(--ease-smooth); }
+.animate-fadeInDown { animation: fadeInDown var(--transition-base) var(--ease-smooth); }
+.animate-slideInLeft { animation: slideInLeft var(--transition-base) var(--ease-smooth); }
+.animate-slideInRight { animation: slideInRight var(--transition-base) var(--ease-smooth); }
+.animate-slideInUp { animation: slideInUp var(--transition-base) var(--ease-smooth); }
+.animate-slideInDown { animation: slideInDown var(--transition-base) var(--ease-smooth); }
+.animate-scaleIn { animation: scaleIn var(--transition-base) var(--ease-smooth); }
+.animate-bounce { animation: bounce 1s var(--ease-bounce); }
+.animate-bounceIn { animation: bounceIn var(--transition-slow) var(--ease-bounce); }
+.animate-pulse { animation: pulse 2s var(--ease-smooth) infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+.animate-shake { animation: shake 0.5s var(--ease-smooth); }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ===== DELAYS ESCALONADOS ===== */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+
+/* ===== COMPORTAMIENTO ===== */
+.animate-once { animation-iteration-count: 1; }
+.animate-infinite { animation-iteration-count: infinite; }
+
+/* ===== TRANSICIONES SUAVES UNIVERSALES ===== */
+.transition-all { transition: all var(--transition-base); }
+.transition-colors { transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast); }
+.transition-transform { transition: transform var(--transition-base); }
+.transition-opacity { transition: opacity var(--transition-fast); }
+.transition-shadow { transition: box-shadow var(--transition-base); }

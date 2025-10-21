@@ -1,0 +1,18 @@
+/* ========================================
+   LAYOUT: FOOTER
+   ======================================== */
+
+.footer {
+    background-color: var(--color-primary-dark);
+    color: white;
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+    margin-top: auto;
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.1);
+}
+
+.footer p {
+    margin: var(--spacing-xs) 0;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+}

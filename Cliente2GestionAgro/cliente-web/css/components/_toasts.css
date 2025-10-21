@@ -1,0 +1,70 @@
+/* ========================================
+   COMPONENTE: TOAST NOTIFICATIONS
+   ======================================== */
+
+#toast-container {
+    position: fixed;
+    top: 90px;
+    right: var(--spacing-lg);
+    z-index: var(--z-toast);
+    max-width: 400px;
+}
+
+.toast {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    animation: slideInRight 0.3s var(--ease-bounce);
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid var(--color-info);
+}
+
+/* ===== PROGRESS BAR ===== */
+.toast::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: currentColor;
+    animation: progress 3s linear;
+}
+
+/* ===== TIPOS DE TOAST ===== */
+.toast.success {
+    border-left-color: var(--color-success);
+}
+
+.toast.success::after {
+    background-color: var(--color-success);
+}
+
+.toast.error {
+    border-left-color: var(--color-danger);
+}
+
+.toast.error::after {
+    background-color: var(--color-danger);
+}
+
+.toast.warning {
+    border-left-color: var(--color-warning);
+}
+
+.toast.warning::after {
+    background-color: var(--color-warning);
+}
+
+.toast.info {
+    border-left-color: var(--color-info);
+}
+
+.toast.info::after {
+    background-color: var(--color-info);
+}

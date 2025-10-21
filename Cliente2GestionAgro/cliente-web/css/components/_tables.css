@@ -1,0 +1,69 @@
+/* ========================================
+   COMPONENTE: TABLAS
+   ======================================== */
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--border-radius);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-surface);
+}
+
+/* ===== TABLE HEADER ===== */
+.table thead {
+    background-color: var(--color-surface-elevated);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table th {
+    padding: var(--spacing-md) var(--spacing-lg);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    white-space: nowrap;
+    border-bottom: 2px solid var(--color-border);
+}
+
+/* ===== TABLE CELLS ===== */
+.table td {
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+/* ===== ROW HOVER MEJORADO ===== */
+.table tbody tr {
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.table tbody tr::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background-color: var(--color-primary);
+    transform: scaleY(0);
+    transition: transform var(--transition-base);
+}
+
+.table tbody tr:hover {
+    background-color: var(--color-hover);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.table tbody tr:hover::before {
+    transform: scaleY(1);
+}

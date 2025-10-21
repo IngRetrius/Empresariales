@@ -1,0 +1,87 @@
+/* ========================================
+   LAYOUT: NAVBAR
+   ======================================== */
+
+.navbar {
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.nav-tabs {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) 0;
+    position: relative;
+}
+
+/* ===== NAV TAB ===== */
+.nav-tab {
+    background: none;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Underline animado */
+.nav-tab::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-primary);
+    transform: translateX(-50%);
+    transition: width var(--transition-base);
+    border-radius: 2px 2px 0 0;
+}
+
+.nav-tab:hover {
+    color: var(--color-primary);
+    background-color: var(--color-hover);
+}
+
+.nav-tab:hover::after {
+    width: 80%;
+}
+
+.nav-tab.active {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
+.nav-tab.active::after {
+    width: 100%;
+}
+
+/* Ripple effect en tabs */
+.nav-tab::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(46, 125, 50, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.nav-tab:active::before {
+    width: 200px;
+    height: 200px;
+}

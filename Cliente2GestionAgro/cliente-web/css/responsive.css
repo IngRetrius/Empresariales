@@ -1,0 +1,6 @@
+/* Media queries básicos */
+@media (max-width:640px){
+  header{padding:12px}
+  .container{margin:16px auto;padding:0 12px}
+  #logo{width:40px;height:40px}
+}

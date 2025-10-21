@@ -1,0 +1,17 @@
+/* ========================================
+   COMPONENTE: BADGES
+   ======================================== */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--border-radius-full);
+    background-color: var(--color-primary);
+    color: white;
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+    animation: bounceIn 0.5s var(--ease-bounce);
+}

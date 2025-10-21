@@ -1,0 +1,28 @@
+<!-- ========== NAVIGATION ========== -->
+<nav class="navbar">
+    <div class="container">
+        <ul class="nav-tabs">
+            <li><a href="../index.html" class="nav-tab">Inicio</a></li>
+            <li><a href="productos.html" class="nav-tab" data-page="productos">Productos</a></li>
+            <li><a href="cosechas.html" class="nav-tab" data-page="cosechas">Cosechas</a></li>
+            <li><a href="maestro-detalle.html" class="nav-tab" data-page="maestro-detalle">Maestro-Detalle</a></li>
+            <li><a href="estadisticas.html" class="nav-tab" data-page="estadisticas">Estadísticas</a></li>
+            <li><a href="acerca-de.html" class="nav-tab" data-page="acerca-de">Acerca de</a></li>
+        </ul>
+    </div>
+</nav>
+
+<script>
+    // Marcar como activo el tab de la página actual
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+        const navTabs = document.querySelectorAll('.nav-tab');
+
+        navTabs.forEach(tab => {
+            const tabPage = tab.getAttribute('data-page');
+            if (tabPage === currentPage) {
+                tab.classList.add('active');
+            }
+        });
+    });
+</script>
