@@ -266,35 +266,63 @@ const UI = {
      * Obtiene los datos del formulario de CREAR cosecha
      */
     obtenerDatosFormularioCrearCosecha() {
-        return {
-            productoId: document.getElementById('crear-cosecha-producto').value,
-            fechaCosecha: document.getElementById('crear-cosecha-fecha').value,
+        const productoIdValue = document.getElementById('crear-cosecha-producto').value;
+        const numeroTrabajadoresValue = document.getElementById('crear-cosecha-trabajadores').value;
+        const costoManoObraValue = document.getElementById('crear-cosecha-costo').value;
+
+        const datos = {
+            productoId: productoIdValue, // Mantener como string (ej: "AGR001")
+            fechaCosecha: API.formatearFechaParaAPI(document.getElementById('crear-cosecha-fecha').value),
             cantidadRecolectada: parseInt(document.getElementById('crear-cosecha-cantidad').value),
             calidadProducto: document.getElementById('crear-cosecha-calidad').value,
             estadoCosecha: document.getElementById('crear-cosecha-estado').value || 'Pendiente',
-            numeroTrabajadores: parseInt(document.getElementById('crear-cosecha-trabajadores').value) || null,
-            costoManoObra: parseFloat(document.getElementById('crear-cosecha-costo').value) || null,
             condicionesClimaticas: document.getElementById('crear-cosecha-clima').value,
             observaciones: document.getElementById('crear-cosecha-observaciones').value
         };
+
+        // Solo agregar campos opcionales si tienen valor
+        if (numeroTrabajadoresValue && numeroTrabajadoresValue.trim() !== '') {
+            datos.numeroTrabajadores = parseInt(numeroTrabajadoresValue);
+        }
+
+        if (costoManoObraValue && costoManoObraValue.trim() !== '') {
+            datos.costoManoObra = parseFloat(costoManoObraValue);
+        }
+
+        console.log('[UI] Datos de cosecha preparados para enviar:', datos);
+        return datos;
     },
 
     /**
      * Obtiene los datos del formulario de EDITAR cosecha
      */
     obtenerDatosFormularioEditarCosecha() {
-        return {
-            id: document.getElementById('editar-cosecha-id').value,
-            productoId: document.getElementById('editar-cosecha-producto').value,
-            fechaCosecha: document.getElementById('editar-cosecha-fecha').value,
+        const productoIdValue = document.getElementById('editar-cosecha-producto').value;
+        const numeroTrabajadoresValue = document.getElementById('editar-cosecha-trabajadores').value;
+        const costoManoObraValue = document.getElementById('editar-cosecha-costo').value;
+
+        const datos = {
+            id: document.getElementById('editar-cosecha-id').value, // Mantener como string (ej: "COS001")
+            productoId: productoIdValue, // Mantener como string (ej: "AGR001")
+            fechaCosecha: API.formatearFechaParaAPI(document.getElementById('editar-cosecha-fecha').value),
             cantidadRecolectada: parseInt(document.getElementById('editar-cosecha-cantidad').value),
             calidadProducto: document.getElementById('editar-cosecha-calidad').value,
             estadoCosecha: document.getElementById('editar-cosecha-estado').value || 'Pendiente',
-            numeroTrabajadores: parseInt(document.getElementById('editar-cosecha-trabajadores').value) || null,
-            costoManoObra: parseFloat(document.getElementById('editar-cosecha-costo').value) || null,
             condicionesClimaticas: document.getElementById('editar-cosecha-clima').value,
             observaciones: document.getElementById('editar-cosecha-observaciones').value
         };
+
+        // Solo agregar campos opcionales si tienen valor
+        if (numeroTrabajadoresValue && numeroTrabajadoresValue.trim() !== '') {
+            datos.numeroTrabajadores = parseInt(numeroTrabajadoresValue);
+        }
+
+        if (costoManoObraValue && costoManoObraValue.trim() !== '') {
+            datos.costoManoObra = parseFloat(costoManoObraValue);
+        }
+
+        console.log('[UI] Datos de cosecha preparados para actualizar:', datos);
+        return datos;
     },
 
     // ==================== RENDERIZADO DE TABLAS ====================
@@ -1276,35 +1304,145 @@ const UI = {
      * Obtiene los datos del formulario de CREAR cosecha maestro
      */
     obtenerDatosFormularioCrearCosechaMaestro() {
-        return {
-            productoId: document.getElementById('crear-cosecha-maestro-producto').value,
-            fechaCosecha: document.getElementById('crear-cosecha-maestro-fecha').value,
+        const productoIdValue = document.getElementById('crear-cosecha-maestro-producto').value;
+        const numeroTrabajadoresValue = document.getElementById('crear-cosecha-maestro-trabajadores').value;
+        const costoManoObraValue = document.getElementById('crear-cosecha-maestro-costo').value;
+
+        const datos = {
+            productoId: productoIdValue, // Mantener como string (ej: "AGR001")
+            fechaCosecha: API.formatearFechaParaAPI(document.getElementById('crear-cosecha-maestro-fecha').value),
             cantidadRecolectada: parseInt(document.getElementById('crear-cosecha-maestro-cantidad').value),
             calidadProducto: document.getElementById('crear-cosecha-maestro-calidad').value,
             estadoCosecha: document.getElementById('crear-cosecha-maestro-estado').value || 'Pendiente',
-            numeroTrabajadores: parseInt(document.getElementById('crear-cosecha-maestro-trabajadores').value) || null,
-            costoManoObra: parseFloat(document.getElementById('crear-cosecha-maestro-costo').value) || null,
             condicionesClimaticas: document.getElementById('crear-cosecha-maestro-clima').value,
             observaciones: document.getElementById('crear-cosecha-maestro-observaciones').value
         };
+
+        // Solo agregar campos opcionales si tienen valor
+        if (numeroTrabajadoresValue && numeroTrabajadoresValue.trim() !== '') {
+            datos.numeroTrabajadores = parseInt(numeroTrabajadoresValue);
+        }
+
+        if (costoManoObraValue && costoManoObraValue.trim() !== '') {
+            datos.costoManoObra = parseFloat(costoManoObraValue);
+        }
+
+        console.log('[UI] Datos de cosecha maestro preparados para enviar:', datos);
+        return datos;
     },
 
     /**
      * Obtiene los datos del formulario de EDITAR cosecha maestro
      */
     obtenerDatosFormularioEditarCosechaMaestro() {
-        return {
-            id: document.getElementById('editar-cosecha-maestro-id').value,
-            productoId: document.getElementById('editar-cosecha-maestro-producto').value,
-            fechaCosecha: document.getElementById('editar-cosecha-maestro-fecha').value,
+        const productoIdValue = document.getElementById('editar-cosecha-maestro-producto').value;
+        const numeroTrabajadoresValue = document.getElementById('editar-cosecha-maestro-trabajadores').value;
+        const costoManoObraValue = document.getElementById('editar-cosecha-maestro-costo').value;
+
+        const datos = {
+            id: document.getElementById('editar-cosecha-maestro-id').value, // Mantener como string (ej: "COS001")
+            productoId: productoIdValue, // Mantener como string (ej: "AGR001")
+            fechaCosecha: API.formatearFechaParaAPI(document.getElementById('editar-cosecha-maestro-fecha').value),
             cantidadRecolectada: parseInt(document.getElementById('editar-cosecha-maestro-cantidad').value),
             calidadProducto: document.getElementById('editar-cosecha-maestro-calidad').value,
             estadoCosecha: document.getElementById('editar-cosecha-maestro-estado').value || 'Pendiente',
-            numeroTrabajadores: parseInt(document.getElementById('editar-cosecha-maestro-trabajadores').value) || null,
-            costoManoObra: parseFloat(document.getElementById('editar-cosecha-maestro-costo').value) || null,
             condicionesClimaticas: document.getElementById('editar-cosecha-maestro-clima').value,
             observaciones: document.getElementById('editar-cosecha-maestro-observaciones').value
         };
+
+        // Solo agregar campos opcionales si tienen valor
+        if (numeroTrabajadoresValue && numeroTrabajadoresValue.trim() !== '') {
+            datos.numeroTrabajadores = parseInt(numeroTrabajadoresValue);
+        }
+
+        if (costoManoObraValue && costoManoObraValue.trim() !== '') {
+            datos.costoManoObra = parseFloat(costoManoObraValue);
+        }
+
+        console.log('[UI] Datos de cosecha maestro preparados para actualizar:', datos);
+        return datos;
+    },
+
+    // ==================== MODAL DE DETALLE ====================
+
+    /**
+     * Muestra el modal de detalle de cosecha con diseño personalizado
+     */
+    mostrarModalDetalleCosecha(cosecha) {
+        const modal = document.getElementById('modal-detalle-cosecha');
+        const contenido = document.getElementById('modal-detalle-contenido');
+
+        if (!modal || !contenido) {
+            console.error('[UI] No se encontró el modal de detalle');
+            return;
+        }
+
+        // Construir el HTML con los detalles de la cosecha
+        contenido.innerHTML = `
+            <div class="detalle-item">
+                <div class="detalle-item-label">ID Cosecha</div>
+                <div class="detalle-item-value">${cosecha.id}</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Producto</div>
+                <div class="detalle-item-value">${cosecha.productoId}</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Fecha</div>
+                <div class="detalle-item-value">${API.formatearFechaDesdeAPI(cosecha.fechaCosecha)}</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Cantidad</div>
+                <div class="detalle-item-value">${API.formatearNumero(cosecha.cantidadRecolectada)} kg</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Calidad</div>
+                <div class="detalle-item-value">${cosecha.calidadProducto}</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Estado</div>
+                <div class="detalle-item-value">${cosecha.estadoCosecha}</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Trabajadores</div>
+                <div class="detalle-item-value">${cosecha.numeroTrabajadores || 'N/A'}</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Costo Mano de Obra</div>
+                <div class="detalle-item-value">${API.formatearMoneda(cosecha.costoManoObra || 0)}</div>
+            </div>
+            <div class="detalle-item">
+                <div class="detalle-item-label">Condiciones Climáticas</div>
+                <div class="detalle-item-value">${cosecha.condicionesClimaticas || 'N/A'}</div>
+            </div>
+            <div class="detalle-item detalle-item-full">
+                <div class="detalle-item-label">Observaciones</div>
+                <div class="detalle-item-value">${cosecha.observaciones || 'N/A'}</div>
+            </div>
+        `;
+
+        // Mostrar el modal
+        modal.classList.add('show');
+
+        // Eventos para cerrar el modal
+        const btnClose = document.getElementById('modal-detalle-close');
+        const btnOk = document.getElementById('modal-detalle-ok');
+
+        const cerrarModal = () => {
+            modal.classList.remove('show');
+        };
+
+        btnClose.onclick = cerrarModal;
+        btnOk.onclick = cerrarModal;
+
+        // Cerrar al hacer clic fuera del modal
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        };
+
+        console.log('[UI] Modal de detalle de cosecha mostrado');
     }
 };
 

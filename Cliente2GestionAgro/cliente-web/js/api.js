@@ -301,21 +301,46 @@ const API = {
 
     /**
      * Formatea una fecha para enviarla al servidor
+     * Convierte formato datetime-local (YYYY-MM-DDTHH:MM) a formato con segundos (YYYY-MM-DDTHH:MM:SS)
      */
     formatearFechaParaAPI(fecha) {
         if (!fecha) return null;
-        
-        // Si es string de datetime-local, convertir a formato ISO
+
+        // Si es string de datetime-local (YYYY-MM-DDTHH:MM)
         if (typeof fecha === 'string') {
+            // Si ya tiene segundos, devolverlo tal cual
+            if (fecha.length === 19) {
+                return fecha;
+            }
+            // Si no tiene segundos (formato datetime-local), agregar :00
+            if (fecha.length === 16) {
+                return fecha + ':00';
+            }
+            // Si tiene otro formato, intentar parsearlo
             const date = new Date(fecha);
-            return date.toISOString().slice(0, 19);
+            if (!isNaN(date.getTime())) {
+                // Obtener componentes de fecha en hora local
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const seconds = String(date.getSeconds()).padStart(2, '0');
+                return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+            }
         }
-        
+
         // Si es objeto Date
         if (fecha instanceof Date) {
-            return fecha.toISOString().slice(0, 19);
+            const year = fecha.getFullYear();
+            const month = String(fecha.getMonth() + 1).padStart(2, '0');
+            const day = String(fecha.getDate()).padStart(2, '0');
+            const hours = String(fecha.getHours()).padStart(2, '0');
+            const minutes = String(fecha.getMinutes()).padStart(2, '0');
+            const seconds = String(fecha.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
         }
-        
+
         return fecha;
     },
 

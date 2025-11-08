@@ -598,21 +598,12 @@ const APP = {
             UI.mostrarLoading();
             const cosecha = await API.obtenerCosechaPorId(id);
             UI.ocultarLoading();
-            
-            // Mostrar información en un alert (puedes mejorar esto con un modal personalizado)
-            const info = `
-                ID: ${cosecha.id}
-                Producto: ${cosecha.productoId}
-                Fecha: ${API.formatearFechaDesdeAPI(cosecha.fechaCosecha)}
-                Cantidad: ${API.formatearNumero(cosecha.cantidadRecolectada)} kg
-                Calidad: ${cosecha.calidadProducto}
-                Estado: ${cosecha.estadoCosecha}
-                Trabajadores: ${cosecha.numeroTrabajadores || 'N/A'}
-                Costo Mano de Obra: ${API.formatearMoneda(cosecha.costoManoObra || 0)}
-                Condiciones: ${cosecha.condicionesClimaticas || 'N/A'}
-                Observaciones: ${cosecha.observaciones || 'N/A'}
-            `;
-            alert(info);
+
+            // Esperar un momento para que el modal de loading se oculte completamente
+            setTimeout(() => {
+                // Mostrar modal personalizado con los detalles
+                UI.mostrarModalDetalleCosecha(cosecha);
+            }, 100); // 100ms de retraso
         } catch (error) {
             UI.ocultarLoading();
             UI.mostrarToast('Error al cargar detalle de cosecha', 'error');

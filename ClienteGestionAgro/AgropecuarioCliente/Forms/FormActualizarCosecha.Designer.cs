@@ -219,10 +219,10 @@
             this.cmbCalidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.cmbCalidad.FormattingEnabled = true;
             this.cmbCalidad.Items.AddRange(new object[] {
-            "Excelente",
-            "Buena",
-            "Regular",
-            "Mala"});
+            "Premium",
+            "Extra",
+            "Estándar",
+            "Segunda"});
             this.cmbCalidad.Location = new System.Drawing.Point(350, 105);
             this.cmbCalidad.Name = "cmbCalidad";
             this.cmbCalidad.Size = new System.Drawing.Size(150, 23);
@@ -311,9 +311,8 @@
             this.cmbEstado.FormattingEnabled = true;
             this.cmbEstado.Items.AddRange(new object[] {
             "Pendiente",
-            "En Proceso",
-            "Completada",
-            "Cancelada"});
+            "En proceso",
+            "Completada"});
             this.cmbEstado.Location = new System.Drawing.Point(250, 225);
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(200, 23);

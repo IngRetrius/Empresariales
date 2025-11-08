@@ -67,13 +67,13 @@ namespace AgropecuarioCliente.Forms
             dtpFecha.Value = DateTime.Now;
 
             if (cmbCalidad.Items.Count > 0)
-                cmbCalidad.SelectedIndex = 1; // "Buena"
+                cmbCalidad.SelectedIndex = 1; // "Extra"
 
             if (cmbCondiciones.Items.Count > 0)
                 cmbCondiciones.SelectedIndex = 0; // "Soleado"
 
             if (cmbEstado.Items.Count > 0)
-                cmbEstado.SelectedIndex = 1; // "En Proceso"
+                cmbEstado.SelectedIndex = 1; // "En proceso"
         }
 
         private void LimpiarFormulario()
