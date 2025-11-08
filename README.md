@@ -200,7 +200,6 @@ mvn test
 │       ├── css/                # Estilos
 │       └── js/                 # JavaScript
 │
-├── CLAUDE.md                   # Documentación detallada para Claude Code
 └── README.md                   # Este archivo
 ```
 
@@ -259,7 +258,6 @@ mvn test
 - [Documentación completa del Backend](AgroMicroservicio/README.md)
 - [Guía de configuración](AgroMicroservicio/CONFIGURATION.md)
 - [Explicación de conexión a BD](AgroMicroservicio/EXPLICACION_CONEXION_BD.md)
-- [Guía para Claude Code](CLAUDE.md)
 
 ## Licencia
 
