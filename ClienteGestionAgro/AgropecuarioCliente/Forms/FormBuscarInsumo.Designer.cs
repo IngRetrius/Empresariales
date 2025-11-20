@@ -27,6 +27,7 @@ namespace AgropecuarioCliente.Forms
             this.txtProveedor = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnBuscarLista = new System.Windows.Forms.Button();
             this.groupBoxResultados = new System.Windows.Forms.GroupBox();
             this.lblResultados = new System.Windows.Forms.Label();
             this.lblStockBajo = new System.Windows.Forms.Label();
@@ -79,6 +80,7 @@ namespace AgropecuarioCliente.Forms
             //
             // groupBoxBusqueda
             //
+            this.groupBoxBusqueda.Controls.Add(this.btnBuscarLista);
             this.groupBoxBusqueda.Controls.Add(this.btnLimpiar);
             this.groupBoxBusqueda.Controls.Add(this.btnBuscar);
             this.groupBoxBusqueda.Controls.Add(this.txtProveedor);
@@ -208,6 +210,18 @@ namespace AgropecuarioCliente.Forms
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = false;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            //
+            // btnBuscarLista
+            //
+            this.btnBuscarLista.BackColor = System.Drawing.Color.LightBlue;
+            this.btnBuscarLista.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBuscarLista.Location = new System.Drawing.Point(30, 117);
+            this.btnBuscarLista.Name = "btnBuscarLista";
+            this.btnBuscarLista.Size = new System.Drawing.Size(250, 27);
+            this.btnBuscarLista.TabIndex = 10;
+            this.btnBuscarLista.Text = "Buscar desde Lista";
+            this.btnBuscarLista.UseVisualStyleBackColor = false;
+            this.btnBuscarLista.Click += new System.EventHandler(this.btnBuscarLista_Click);
             //
             // groupBoxResultados
             //
@@ -655,5 +669,6 @@ namespace AgropecuarioCliente.Forms
         private System.Windows.Forms.Label lblResFechaVencimiento;
         private System.Windows.Forms.TextBox txtResultadoFechaVencimiento;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.Button btnBuscarLista;
     }
 }

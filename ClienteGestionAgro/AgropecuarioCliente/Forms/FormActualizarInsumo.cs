@@ -111,7 +111,58 @@ namespace AgropecuarioCliente.Forms
             }
         }
 
-        private async void btnBuscar_Click(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            // Mostrar opciones de búsqueda
+            var resultado = MessageBox.Show(
+                "¿Cómo desea buscar el insumo?\n\n" +
+                "Sí = Buscar desde lista de insumos\n" +
+                "No = Ingresar ID manualmente",
+                "Método de Búsqueda",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Cancel)
+                return;
+
+            if (resultado == DialogResult.Yes)
+            {
+                // Buscar desde lista
+                BuscarDesdeListaAsync();
+            }
+            else
+            {
+                // Buscar por ID
+                BuscarPorIdAsync();
+            }
+        }
+
+        private void BuscarDesdeListaAsync()
+        {
+            try
+            {
+                using (var formSelector = new FormSelectorInsumo())
+                {
+                    if (formSelector.ShowDialog() == DialogResult.OK)
+                    {
+                        _insumoSeleccionado = formSelector.InsumoSeleccionado;
+
+                        if (_insumoSeleccionado != null)
+                        {
+                            CargarDatosInsumo(_insumoSeleccionado);
+                            HabilitarControles(true);
+                            MessageHelper.ShowSuccess($"Insumo {_insumoSeleccionado.Id} cargado correctamente.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al seleccionar insumo:\n{ex.Message}");
+            }
+        }
+
+        private async void BuscarPorIdAsync()
         {
             string id = Microsoft.VisualBasic.Interaction.InputBox(
                 "Ingrese el ID del insumo a actualizar:",

@@ -27,6 +27,31 @@ namespace AgropecuarioCliente.Forms
             LimpiarCamposResultado();
         }
 
+        private void btnBuscarLista_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var formSelector = new FormSelectorInsumo())
+                {
+                    if (formSelector.ShowDialog() == DialogResult.OK)
+                    {
+                        var insumoSeleccionado = formSelector.InsumoSeleccionado;
+
+                        if (insumoSeleccionado != null)
+                        {
+                            _resultados.Clear();
+                            _resultados.Add(insumoSeleccionado);
+                            ActualizarResultados();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al seleccionar insumo:\n{ex.Message}");
+            }
+        }
+
         private void CargarComboBoxes()
         {
             cmbTipoInsumo.Items.Clear();

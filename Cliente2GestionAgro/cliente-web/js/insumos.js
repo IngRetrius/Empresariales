@@ -215,11 +215,11 @@ function renderizarTablaInsumos(insumos) {
             <td>${formatearFechaCorta(insumo.fechaCompra)}</td>
             <td>
                 <div class="btn-group">
-                    <button class="btn btn-sm btn-warning" onclick="editarInsumo('${insumo.id}')" title="Editar">
-                        ✏️
+                    <button class="btn btn-sm btn-warning" onclick="window.editarInsumoDesdeTabla('${insumo.id}')" title="Editar">
+                        Editar
                     </button>
-                    <button class="btn btn-sm btn-danger" onclick="confirmarEliminarInsumo('${insumo.id}')" title="Eliminar">
-                        🗑️
+                    <button class="btn btn-sm btn-danger" onclick="window.confirmarEliminarInsumoDesdeTabla('${insumo.id}')" title="Eliminar">
+                        Eliminar
                     </button>
                 </div>
             </td>
@@ -373,7 +373,7 @@ function abrirModalCrear() {
     ahora.setMinutes(ahora.getMinutes() - ahora.getTimezoneOffset());
     document.getElementById('insumo-fecha-compra').value = ahora.toISOString().slice(0, 16);
 
-    document.getElementById('modal-insumo').classList.add('active');
+    document.getElementById('modal-insumo').classList.add('show');
 }
 
 /**
@@ -415,7 +415,7 @@ async function editarInsumo(id) {
             document.getElementById('insumo-fecha-vencimiento').value = fechaVenc.toISOString().split('T')[0];
         }
 
-        document.getElementById('modal-insumo').classList.add('active');
+        document.getElementById('modal-insumo').classList.add('show');
 
     } catch (error) {
         console.error('[INSUMOS] Error al cargar insumo para editar:', error);
@@ -427,7 +427,7 @@ async function editarInsumo(id) {
  * Cierra el modal
  */
 function cerrarModal() {
-    document.getElementById('modal-insumo').classList.remove('active');
+    document.getElementById('modal-insumo').classList.remove('show');
     document.getElementById('form-insumo').reset();
     modoEdicion = false;
 }
@@ -568,6 +568,36 @@ function formatearFechaCorta(fecha) {
         return 'N/A';
     }
 }
+
+// ==================== FUNCIONES GLOBALES PARA ONCLICK ====================
+
+/**
+ * Edita un insumo desde la tabla
+ */
+window.editarInsumoDesdeTabla = async function(id) {
+    console.log(`[INSUMOS] Editando insumo desde tabla: ${id}`);
+    await editarInsumo(id);
+};
+
+/**
+ * Confirma y elimina un insumo desde la tabla
+ */
+window.confirmarEliminarInsumoDesdeTabla = async function(id) {
+    console.log(`[INSUMOS] Confirmando eliminación desde tabla: ${id}`);
+
+    const confirmar = confirm('¿Está seguro que desea eliminar este insumo?\n\nEsta acción no se puede deshacer.');
+
+    if (confirmar) {
+        try {
+            await API.eliminarInsumo(id);
+            UI.mostrarToast(CONFIG.MENSAJES.INSUMO_ELIMINADO, 'success');
+            await cargarInsumos();
+        } catch (error) {
+            console.error('[INSUMOS] Error al eliminar:', error);
+            UI.mostrarToast(CONFIG.MENSAJES.ERROR_ELIMINAR_INSUMO, 'error');
+        }
+    }
+};
 
 // Log de carga del módulo
 console.log('[INSUMOS] Módulo insumos.js cargado');

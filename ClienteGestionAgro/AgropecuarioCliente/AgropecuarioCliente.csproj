@@ -182,6 +182,12 @@
     <Compile Include="Forms\FormInsumosDeProducto.Designer.cs">
       <DependentUpon>FormInsumosDeProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormSelectorInsumo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSelectorInsumo.Designer.cs">
+      <DependentUpon>FormSelectorInsumo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Cosecha.cs" />
     <Compile Include="Models\Insumo.cs" />
@@ -192,6 +198,9 @@
     <Compile Include="Utils\MessageHelper.cs" />
     <EmbeddedResource Include="Forms\FormAcercaDe.resx">
       <DependentUpon>FormAcercaDe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormActualizarInsumo.resx">
+      <DependentUpon>FormActualizarInsumo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormBuscarProducto.resx">
       <DependentUpon>FormBuscarProducto.cs</DependentUpon>

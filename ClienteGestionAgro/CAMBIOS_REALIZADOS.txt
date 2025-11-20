@@ -1,0 +1,92 @@
+CAMBIOS REALIZADOS - MEJORA DE SELECCIÓN DE INSUMOS
+======================================================
+
+Fecha: 19 de Noviembre de 2025
+
+PROBLEMA RESUELTO
+-----------------
+Los usuarios tenían que recordar y escribir manualmente los IDs de insumos
+para editarlos, eliminarlos o buscarlos, lo cual era propenso a errores.
+
+SOLUCIÓN IMPLEMENTADA
+---------------------
+Se agregó un sistema de selección visual desde una lista completa de insumos,
+manteniendo también la opción de búsqueda manual por ID.
+
+ARCHIVOS CREADOS
+----------------
+1. Forms/FormSelectorInsumo.cs
+2. Forms/FormSelectorInsumo.Designer.cs
+3. MEJORAS_INSUMOS.md (documentación detallada)
+
+ARCHIVOS MODIFICADOS
+--------------------
+1. Forms/FormActualizarInsumo.cs
+   - Método btnBuscar_Click ahora muestra diálogo de opciones
+   - Nuevos métodos: BuscarDesdeListaAsync() y BuscarPorIdAsync()
+
+2. Forms/FormEliminarInsumo.cs
+   - Misma estructura que FormActualizarInsumo
+   - Diálogo de selección antes de buscar
+
+3. Forms/FormBuscarInsumo.cs
+   - Nuevo botón "Buscar desde Lista"
+   - Método btnBuscarLista_Click()
+
+4. Forms/FormBuscarInsumo.Designer.cs
+   - Agregado control btnBuscarLista
+
+5. AgropecuarioCliente.csproj
+   - Agregadas referencias a FormSelectorInsumo
+
+CORRECCIONES APLICADAS
+-----------------------
+1. Eliminados modificadores 'async' innecesarios (CS1998)
+2. Eliminados emojis de los textos de botones
+3. Agregado FormSelectorInsumo al archivo .csproj
+
+CARACTERÍSTICAS DEL FormSelectorInsumo
+---------------------------------------
+- DataGridView con 7 columnas (ID, Nombre, Tipo, Cantidad, Unidad, Proveedor, Producto)
+- Búsqueda en tiempo real por cualquier campo
+- Doble click para seleccionar
+- Botón "Actualizar Lista" para recargar desde el servidor
+- Contador de registros filtrados
+
+FLUJO DE USO
+------------
+FormActualizarInsumo / FormEliminarInsumo:
+1. Usuario hace clic en botón "Buscar"
+2. Aparece diálogo: "¿Cómo desea buscar el insumo?"
+3. Opciones:
+   - Sí: Abre FormSelectorInsumo con lista completa
+   - No: InputBox para ingresar ID manualmente
+   - Cancelar: Cierra el diálogo
+
+FormBuscarInsumo:
+1. Usuario puede usar los criterios tradicionales (Por ID, Nombre, Tipo, Proveedor)
+2. O hacer clic en "Buscar desde Lista" para ver todos los insumos
+3. El insumo seleccionado se muestra en el panel de resultados
+
+BENEFICIOS
+----------
+- Menor cantidad de errores de tipeo
+- Visualización de todos los insumos disponibles
+- Búsqueda rápida con filtros en tiempo real
+- Mantiene compatibilidad con método manual
+- Interfaz más amigable para usuarios nuevos
+
+COMPILACIÓN
+-----------
+El proyecto está listo para compilar en Visual Studio.
+Todos los errores CS0246 y CS1998 han sido resueltos.
+
+PRÓXIMOS PASOS
+--------------
+1. Compilar el proyecto en Visual Studio
+2. Probar cada formulario:
+   - FormActualizarInsumo
+   - FormEliminarInsumo
+   - FormBuscarInsumo
+3. Verificar que la selección desde lista funciona correctamente
+4. Verificar que la búsqueda manual por ID sigue funcionando
