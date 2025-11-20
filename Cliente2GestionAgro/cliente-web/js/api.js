@@ -283,6 +283,88 @@ const API = {
         return response.data;
     },
 
+    // ==================== INSUMOS ====================
+
+    /**
+     * Obtiene todos los insumos
+     */
+    async obtenerInsumos() {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMOS);
+        return response.data || [];
+    },
+
+    /**
+     * Obtiene un insumo por ID
+     */
+    async obtenerInsumoPorId(id) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMO_POR_ID(id));
+        return response.data;
+    },
+
+    /**
+     * Obtiene insumos de un producto específico
+     */
+    async obtenerInsumosPorProducto(productoId) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMOS_POR_PRODUCTO(productoId));
+        return response.data || [];
+    },
+
+    /**
+     * Busca insumos por tipo
+     */
+    async buscarInsumosPorTipo(tipo) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMOS_POR_TIPO(tipo));
+        return response.data || [];
+    },
+
+    /**
+     * Busca insumos por proveedor
+     */
+    async buscarInsumosPorProveedor(proveedor) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMOS_POR_PROVEEDOR(proveedor));
+        return response.data || [];
+    },
+
+    /**
+     * Crea un nuevo insumo
+     */
+    async crearInsumo(insumo) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMOS, {
+            method: 'POST',
+            body: JSON.stringify(insumo)
+        });
+        return response.data;
+    },
+
+    /**
+     * Actualiza un insumo existente
+     */
+    async actualizarInsumo(id, insumo) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMO_POR_ID(id), {
+            method: 'PUT',
+            body: JSON.stringify(insumo)
+        });
+        return response.data;
+    },
+
+    /**
+     * Elimina un insumo
+     */
+    async eliminarInsumo(id) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMO_POR_ID(id), {
+            method: 'DELETE'
+        });
+        return response;
+    },
+
+    /**
+     * Obtiene el costo total de insumos de un producto
+     */
+    async obtenerCostoTotalInsumos(productoId) {
+        const response = await this.request(CONFIG.ENDPOINTS.INSUMOS_COSTO_TOTAL(productoId));
+        return response.data;
+    },
+
     // ==================== UTILIDADES ====================
 
     /**

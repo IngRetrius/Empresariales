@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insumos Agrícolas - Sistema Agropecuario</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <div data-component="header"></div>
+
+    <!-- Navigation Component -->
+    <div data-component="nav"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- ========== SECCIÓN: INSUMOS ========== -->
+            <section id="section-insumos" class="section active">
+                <div class="section-header">
+                    <h2>Gestión de Insumos Agrícolas</h2>
+                    <button class="btn btn-primary" id="btn-crear-insumo">
+                        Crear Insumo
+                    </button>
+                </div>
+
+                <!-- Búsqueda Individual -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Buscar Insumo Individual</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-group">
+                            <input type="text" id="input-buscar-insumo-id" class="form-control" placeholder="Ingrese ID del insumo (ej: INS001)...">
+                            <button class="btn btn-info" id="btn-buscar-insumo-individual">
+                                Buscar Insumo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultado de Búsqueda Individual -->
+                <div id="resultado-busqueda-insumo" class="card hidden">
+                    <div class="card-header">
+                        <h3>Información del Insumo</h3>
+                        <button class="btn-close" id="btn-cerrar-resultado-insumo">&times;</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="text" id="resultado-insumo-id" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del Insumo</label>
+                                <input type="text" id="resultado-insumo-nombre" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Producto Asociado (ID)</label>
+                                <input type="text" id="resultado-insumo-producto-id" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Insumo</label>
+                                <input type="text" id="resultado-insumo-tipo" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Cantidad</label>
+                                <input type="text" id="resultado-insumo-cantidad" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Costo Unitario ($)</label>
+                                <input type="text" id="resultado-insumo-costo-unitario" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Costo Total ($)</label>
+                                <input type="text" id="resultado-insumo-costo-total" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Proveedor</label>
+                                <input type="text" id="resultado-insumo-proveedor" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Fecha de Compra</label>
+                                <input type="text" id="resultado-insumo-fecha-compra" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Unidad de Medida</label>
+                                <input type="text" id="resultado-insumo-unidad-medida" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-warning" id="btn-editar-resultado-insumo">
+                                Editar Insumo
+                            </button>
+                            <button class="btn btn-danger" id="btn-eliminar-resultado-insumo">
+                                Eliminar Insumo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros de Búsqueda -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Filtrar Insumos</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-group">
+                            <select id="filtro-tipo-insumo" class="form-control">
+                                <option value="">Seleccione tipo de insumo...</option>
+                            </select>
+                            <select id="filtro-producto-insumo" class="form-control">
+                                <option value="">Seleccione producto...</option>
+                            </select>
+                            <input type="text" id="filtro-proveedor-insumo" class="form-control" placeholder="Filtrar por proveedor...">
+                            <button class="btn btn-secondary" id="btn-limpiar-filtros-insumo">
+                                Limpiar Filtros
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Insumos -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Listado de Insumos</h3>
+                        <div class="card-header-actions">
+                            <span id="total-insumos" class="badge badge-info">Total: 0</span>
+                            <button class="btn btn-success btn-sm" id="btn-refrescar-insumos">
+                                Actualizar Lista
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table" id="tabla-insumos">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Producto</th>
+                                        <th>Tipo</th>
+                                        <th>Cantidad</th>
+                                        <th>Costo Unit.</th>
+                                        <th>Costo Total</th>
+                                        <th>Proveedor</th>
+                                        <th>Fecha Compra</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-insumos">
+                                    <tr>
+                                        <td colspan="10" class="text-center">
+                                            Cargando insumos...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div data-component="footer"></div>
+
+    <!-- ========== MODAL: CREAR/EDITAR INSUMO ========== -->
+    <div id="modal-insumo" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-insumo-titulo">Crear Insumo</h3>
+                    <button class="btn-close" id="btn-cerrar-modal-insumo">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-insumo">
+                        <input type="hidden" id="insumo-id">
+                        <input type="hidden" id="insumo-modo" value="crear">
+
+                        <div class="form-group">
+                            <label for="insumo-nombre">Nombre del Insumo *</label>
+                            <input type="text" id="insumo-nombre" class="form-control" required
+                                   placeholder="Ej: Fertilizante NPK 15-15-15">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="insumo-producto-id">Producto Asociado *</label>
+                                <select id="insumo-producto-id" class="form-control" required>
+                                    <option value="">Seleccione producto...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="insumo-tipo">Tipo de Insumo *</label>
+                                <select id="insumo-tipo" class="form-control" required>
+                                    <option value="">Seleccione tipo...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="insumo-cantidad">Cantidad *</label>
+                                <input type="number" id="insumo-cantidad" class="form-control" required min="1" step="1"
+                                       placeholder="Cantidad disponible">
+                            </div>
+                            <div class="form-group">
+                                <label for="insumo-unidad-medida">Unidad de Medida *</label>
+                                <select id="insumo-unidad-medida" class="form-control" required>
+                                    <option value="">Seleccione unidad...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="insumo-costo-unitario">Costo Unitario ($) *</label>
+                                <input type="number" id="insumo-costo-unitario" class="form-control" required
+                                       min="1" step="0.01" placeholder="Costo por unidad">
+                            </div>
+                            <div class="form-group">
+                                <label for="insumo-proveedor">Proveedor *</label>
+                                <input type="text" id="insumo-proveedor" class="form-control" required
+                                       placeholder="Nombre del proveedor">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="insumo-fecha-compra">Fecha de Compra *</label>
+                                <input type="datetime-local" id="insumo-fecha-compra" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="insumo-lote">Lote</label>
+                                <input type="text" id="insumo-lote" class="form-control"
+                                       placeholder="Número de lote (opcional)">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="insumo-descripcion">Descripción</label>
+                            <textarea id="insumo-descripcion" class="form-control" rows="3"
+                                      placeholder="Descripción del insumo (opcional)"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="insumo-stock-minimo">Stock Mínimo</label>
+                                <input type="number" id="insumo-stock-minimo" class="form-control"
+                                       min="0" step="1" placeholder="Stock mínimo (opcional)">
+                            </div>
+                            <div class="form-group">
+                                <label for="insumo-ubicacion-almacen">Ubicación en Almacén</label>
+                                <input type="text" id="insumo-ubicacion-almacen" class="form-control"
+                                       placeholder="Ubicación (opcional)">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="insumo-fecha-vencimiento">Fecha de Vencimiento</label>
+                            <input type="date" id="insumo-fecha-vencimiento" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancelar-insumo">Cancelar</button>
+                    <button type="submit" form="form-insumo" class="btn btn-primary" id="btn-guardar-insumo">
+                        Guardar Insumo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="../js/components-loader.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/insumos.js"></script>
+</body>
+</html>

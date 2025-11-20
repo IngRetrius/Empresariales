@@ -320,6 +320,96 @@ namespace AgropecuarioCliente.Forms
                 MessageHelper.ShowError($"Error al abrir cosechas por producto:\n{ex.Message}");
             }
         }
+
+        // ===== MÉTODOS PARA INSUMOS =====
+
+        private void listarInsumosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formListar = new FormListarInsumos();
+                formListar.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al abrir el formulario de listado de insumos:\n{ex.Message}");
+            }
+        }
+
+        private void crearInsumoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formCrear = new FormCrearInsumo();
+                if (formCrear.ShowDialog() == DialogResult.OK)
+                {
+                    MessageHelper.ShowSuccess("Insumo creado exitosamente.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al abrir el formulario de creación:\n{ex.Message}");
+            }
+        }
+
+        private void editarInsumoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formEditar = new FormActualizarInsumo();
+                if (formEditar.ShowDialog() == DialogResult.OK)
+                {
+                    MessageHelper.ShowSuccess("Insumo actualizado exitosamente.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al abrir el formulario de edición:\n{ex.Message}");
+            }
+        }
+
+        private void buscarInsumoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formBuscar = new FormBuscarInsumo();
+                formBuscar.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al abrir el formulario de búsqueda:\n{ex.Message}");
+            }
+        }
+
+        private void eliminarInsumoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formEliminar = new FormEliminarInsumo();
+                if (formEliminar.ShowDialog() == DialogResult.OK)
+                {
+                    MessageHelper.ShowSuccess("Insumo eliminado exitosamente.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al abrir el formulario de eliminación:\n{ex.Message}");
+            }
+        }
+
+        private void verInsumosPorProductoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formInsumos = new FormInsumosDeProducto();
+                formInsumos.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError($"Error al abrir insumos por producto:\n{ex.Message}");
+            }
+        }
+
         private void FormPrincipal_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control)

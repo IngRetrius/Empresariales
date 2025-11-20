@@ -45,6 +45,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- Spring Boot WebFlux para WebClient (Etapa 2 - Comunicación entre microservicios) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
         <!-- Jackson para JSON processing -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

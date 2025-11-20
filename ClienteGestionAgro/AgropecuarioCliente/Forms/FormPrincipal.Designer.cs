@@ -36,6 +36,14 @@
             this.buscarCosechaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.verPorProductoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insumosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listarInsumosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.crearInsumoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editarInsumoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarInsumoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buscarInsumoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.verInsumosPorProductoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblSubtitulo = new System.Windows.Forms.Label();
             this.btnListar = new System.Windows.Forms.Button();
@@ -60,6 +68,7 @@
             this.archivoToolStripMenuItem,
             this.productosToolStripMenuItem,
             this.cosechasToolStripMenuItem,
+            this.insumosToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -226,7 +235,68 @@
             this.verPorProductoToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.verPorProductoToolStripMenuItem.Text = "Ver por Producto ⭐";
             this.verPorProductoToolStripMenuItem.Click += new System.EventHandler(this.verPorProductoToolStripMenuItem_Click);
-            // 
+            //
+            // insumosToolStripMenuItem
+            //
+            this.insumosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.listarInsumosToolStripMenuItem,
+            this.crearInsumoToolStripMenuItem,
+            this.editarInsumoToolStripMenuItem,
+            this.eliminarInsumoToolStripMenuItem,
+            this.buscarInsumoToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.verInsumosPorProductoToolStripMenuItem});
+            this.insumosToolStripMenuItem.Name = "insumosToolStripMenuItem";
+            this.insumosToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.insumosToolStripMenuItem.Text = "Insumos";
+            //
+            // listarInsumosToolStripMenuItem
+            //
+            this.listarInsumosToolStripMenuItem.Name = "listarInsumosToolStripMenuItem";
+            this.listarInsumosToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.listarInsumosToolStripMenuItem.Text = "Listar Insumos";
+            this.listarInsumosToolStripMenuItem.Click += new System.EventHandler(this.listarInsumosToolStripMenuItem_Click);
+            //
+            // crearInsumoToolStripMenuItem
+            //
+            this.crearInsumoToolStripMenuItem.Name = "crearInsumoToolStripMenuItem";
+            this.crearInsumoToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.crearInsumoToolStripMenuItem.Text = "Crear Insumo";
+            this.crearInsumoToolStripMenuItem.Click += new System.EventHandler(this.crearInsumoToolStripMenuItem_Click);
+            //
+            // editarInsumoToolStripMenuItem
+            //
+            this.editarInsumoToolStripMenuItem.Name = "editarInsumoToolStripMenuItem";
+            this.editarInsumoToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.editarInsumoToolStripMenuItem.Text = "Editar Insumo";
+            this.editarInsumoToolStripMenuItem.Click += new System.EventHandler(this.editarInsumoToolStripMenuItem_Click);
+            //
+            // eliminarInsumoToolStripMenuItem
+            //
+            this.eliminarInsumoToolStripMenuItem.Name = "eliminarInsumoToolStripMenuItem";
+            this.eliminarInsumoToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.eliminarInsumoToolStripMenuItem.Text = "Eliminar Insumo";
+            this.eliminarInsumoToolStripMenuItem.Click += new System.EventHandler(this.eliminarInsumoToolStripMenuItem_Click);
+            //
+            // buscarInsumoToolStripMenuItem
+            //
+            this.buscarInsumoToolStripMenuItem.Name = "buscarInsumoToolStripMenuItem";
+            this.buscarInsumoToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.buscarInsumoToolStripMenuItem.Text = "Buscar Insumo";
+            this.buscarInsumoToolStripMenuItem.Click += new System.EventHandler(this.buscarInsumoToolStripMenuItem_Click);
+            //
+            // toolStripSeparator3
+            //
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(202, 6);
+            //
+            // verInsumosPorProductoToolStripMenuItem
+            //
+            this.verInsumosPorProductoToolStripMenuItem.Name = "verInsumosPorProductoToolStripMenuItem";
+            this.verInsumosPorProductoToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.verInsumosPorProductoToolStripMenuItem.Text = "Ver Insumos por Producto";
+            this.verInsumosPorProductoToolStripMenuItem.Click += new System.EventHandler(this.verInsumosPorProductoToolStripMenuItem_Click);
+            //
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
@@ -449,6 +519,15 @@
         private System.Windows.Forms.ToolStripMenuItem buscarCosechaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem verPorProductoToolStripMenuItem;
+        // Menu items for Insumos (added manually in InitializeComponent)
+        private System.Windows.Forms.ToolStripMenuItem insumosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listarInsumosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem crearInsumoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editarInsumoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eliminarInsumoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buscarInsumoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem verInsumosPorProductoToolStripMenuItem;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblSubtitulo;
         private System.Windows.Forms.Button btnListar;

@@ -337,6 +337,174 @@ namespace AgropecuarioCliente.Services
                 throw new Exception($"Error al eliminar cosecha: {ex.Message}");
             }
         }
+
+        // ===== MÉTODOS PARA INSUMOS (vía proxy en Microservicio A-B) =====
+
+        public async Task<List<Insumo>> ObtenerTodosInsumosAsync()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("http://localhost:8081/api/insumos");
+                response.EnsureSuccessStatusCode();
+
+                var jsonContent = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<List<Insumo>>>(jsonContent, _jsonSettings);
+
+                return apiResponse?.Data ?? new List<Insumo>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener insumos: {ex.Message}");
+            }
+        }
+
+        public async Task<Insumo> ObtenerInsumoPorIdAsync(string id)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"http://localhost:8081/api/insumos/{id}");
+
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    return null;
+
+                response.EnsureSuccessStatusCode();
+
+                var jsonContent = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<Insumo>>(jsonContent, _jsonSettings);
+
+                return apiResponse?.Data;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener insumo por ID: {ex.Message}");
+            }
+        }
+
+        public async Task<List<Insumo>> ObtenerInsumosPorProductoAsync(string productoId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"http://localhost:8081/api/insumos/producto/{productoId}");
+                response.EnsureSuccessStatusCode();
+
+                var jsonContent = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<List<Insumo>>>(jsonContent, _jsonSettings);
+
+                return apiResponse?.Data ?? new List<Insumo>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener insumos del producto: {ex.Message}");
+            }
+        }
+
+        public async Task<List<Insumo>> BuscarInsumosPorTipoAsync(string tipo)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"http://localhost:8081/api/insumos?tipo={Uri.EscapeDataString(tipo)}");
+                response.EnsureSuccessStatusCode();
+
+                var jsonContent = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<List<Insumo>>>(jsonContent, _jsonSettings);
+
+                return apiResponse?.Data ?? new List<Insumo>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al buscar insumos por tipo: {ex.Message}");
+            }
+        }
+
+        public async Task<List<Insumo>> BuscarInsumosPorProveedorAsync(string proveedor)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"http://localhost:8081/api/insumos?proveedor={Uri.EscapeDataString(proveedor)}");
+                response.EnsureSuccessStatusCode();
+
+                var jsonContent = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<List<Insumo>>>(jsonContent, _jsonSettings);
+
+                return apiResponse?.Data ?? new List<Insumo>();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al buscar insumos por proveedor: {ex.Message}");
+            }
+        }
+
+        public async Task<Insumo> CrearInsumoAsync(Insumo insumo)
+        {
+            try
+            {
+                var jsonContent = JsonConvert.SerializeObject(insumo, _jsonSettings);
+                System.Diagnostics.Debug.WriteLine($"JSON enviado (Insumo): {jsonContent}");
+
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync("http://localhost:8081/api/insumos", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error del servidor: {response.StatusCode} - {errorContent}");
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<Insumo>>(responseContent, _jsonSettings);
+
+                return apiResponse?.Data;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al crear insumo: {ex.Message}");
+            }
+        }
+
+        public async Task<Insumo> ActualizarInsumoAsync(string id, Insumo insumo)
+        {
+            try
+            {
+                insumo.Id = id;
+
+                var jsonContent = JsonConvert.SerializeObject(insumo, _jsonSettings);
+                System.Diagnostics.Debug.WriteLine($"JSON enviado para actualizar insumo: {jsonContent}");
+
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PutAsync($"http://localhost:8081/api/insumos/{id}", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Error del servidor: {response.StatusCode} - {errorContent}");
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<Insumo>>(responseContent, _jsonSettings);
+
+                return apiResponse?.Data;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al actualizar insumo: {ex.Message}");
+            }
+        }
+
+        public async Task<bool> EliminarInsumoAsync(string id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"http://localhost:8081/api/insumos/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al eliminar insumo: {ex.Message}");
+            }
+        }
+
         public void Dispose()
         {
             _httpClient?.Dispose();

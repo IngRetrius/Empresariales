@@ -1,10 +1,15 @@
 package co.unibague.agropecuario.rest.controller;
 
 import co.unibague.agropecuario.rest.dto.ApiResponseDTO;
+import co.unibague.agropecuario.rest.dto.IntegridadResponseDTO;
+import co.unibague.agropecuario.rest.dto.InsumoResponseDTO;
 import co.unibague.agropecuario.rest.model.Cosecha;
 import co.unibague.agropecuario.rest.model.ProductoAgricola;
 import co.unibague.agropecuario.rest.service.CosechaService;
+import co.unibague.agropecuario.rest.service.MicroservicioCIntegrationService;
 import co.unibague.agropecuario.rest.service.ProductoAgricolaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +28,88 @@ import java.util.Optional;
 @RequestMapping("/api/productos")
 public class ProductoAgricolaController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductoAgricolaController.class);
+
     @Autowired
     private ProductoAgricolaService service;
 
     @Autowired
     private CosechaService cosechaService;
 
+    @Autowired
+    private MicroservicioCIntegrationService microservicioCIntegration;
+
     // ===== ENDPOINTS ESPECÍFICOS PRIMERO =====
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
         return ResponseEntity.ok("Controller funcionando correctamente - Puerto 8081");
+    }
+
+    /**
+     * Endpoint de verificación de integridad referencial
+     * Usado por Microservicio C (Insumos) para verificar que el producto existe
+     * GET /api/productos/verificar/{productoId}
+     * Etapa 2: Integración entre microservicios
+     */
+    @GetMapping("/verificar/{productoId}")
+    public ResponseEntity<IntegridadResponseDTO> verificarProducto(@PathVariable String productoId) {
+        logger.info("Solicitud de verificación de producto desde Microservicio C: {}", productoId);
+
+        try {
+            IntegridadResponseDTO respuesta = service.verificarExistenciaProducto(productoId);
+
+            if (respuesta.getExiste()) {
+                logger.info("Producto {} verificado exitosamente: {}", productoId, respuesta.getNombre());
+                return ResponseEntity.ok(respuesta);
+            } else {
+                logger.warn("Producto {} no encontrado para verificación", productoId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
+            }
+        } catch (Exception e) {
+            logger.error("Error al verificar producto {}: {}", productoId, e.getMessage(), e);
+
+            IntegridadResponseDTO errorResponse = IntegridadResponseDTO.builder()
+                    .entidad("ProductoAgricola")
+                    .id(productoId)
+                    .existe(false)
+                    .nombre(null)
+                    .build();
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    /**
+     * Obtiene todos los insumos asociados a un producto desde Microservicio C
+     * GET /api/productos/{productoId}/insumos
+     * Etapa 2: Integración bidireccional entre microservicios
+     */
+    @GetMapping("/{productoId}/insumos")
+    public ResponseEntity<ApiResponseDTO<List<InsumoResponseDTO>>> obtenerInsumosDelProducto(
+            @PathVariable String productoId) {
+        logger.info("Consultando insumos del producto {} desde Microservicio C", productoId);
+
+        try {
+            // Verificar que el producto exista
+            if (!service.existeProducto(productoId)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(ApiResponseDTO.error("Producto no encontrado con ID: " + productoId));
+            }
+
+            // Consultar insumos en Microservicio C
+            List<InsumoResponseDTO> insumos = microservicioCIntegration.obtenerInsumosPorProducto(productoId);
+
+            String mensaje = String.format("Se encontraron %d insumos para el producto '%s' en Microservicio C",
+                    insumos.size(), productoId);
+
+            return ResponseEntity.ok(ApiResponseDTO.success(mensaje, insumos));
+
+        } catch (Exception e) {
+            logger.error("Error al obtener insumos del producto {}: {}", productoId, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(ApiResponseDTO.error("Error al comunicarse con Microservicio C: " + e.getMessage()));
+        }
     }
 
     @GetMapping("/estadisticas")

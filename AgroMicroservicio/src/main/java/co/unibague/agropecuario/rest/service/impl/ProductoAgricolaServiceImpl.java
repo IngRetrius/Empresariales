@@ -1,5 +1,6 @@
 package co.unibague.agropecuario.rest.service.impl;
 
+import co.unibague.agropecuario.rest.dto.IntegridadResponseDTO;
 import co.unibague.agropecuario.rest.exception.ProductoAlreadyExistsException;
 import co.unibague.agropecuario.rest.exception.ProductoNotFoundException;
 import co.unibague.agropecuario.rest.model.ProductoAgricola;
@@ -7,6 +8,8 @@ import co.unibague.agropecuario.rest.repository.ProductoAgricolaJpaRepository;
 import co.unibague.agropecuario.rest.service.IdGeneratorService;
 import co.unibague.agropecuario.rest.service.ProductoAgricolaService;
 import co.unibague.agropecuario.rest.utils.Validador;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class ProductoAgricolaServiceImpl implements ProductoAgricolaService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductoAgricolaServiceImpl.class);
 
     @Autowired
     private ProductoAgricolaJpaRepository repository;
@@ -127,6 +132,40 @@ public class ProductoAgricolaServiceImpl implements ProductoAgricolaService {
     @Override
     public int contarProductos() {
         return (int) repository.count();
+    }
+
+    /**
+     * Verifica la existencia de un producto para integridad referencial
+     * Usado por Microservicio C (Insumos) para validar que el producto existe
+     * @param productoId ID del producto a verificar
+     * @return IntegridadResponseDTO con información del producto
+     */
+    @Override
+    public IntegridadResponseDTO verificarExistenciaProducto(String productoId) {
+        logger.debug("Verificando existencia del producto: {}", productoId);
+
+        Optional<ProductoAgricola> productoOpt = repository.findById(productoId);
+
+        if (productoOpt.isPresent()) {
+            ProductoAgricola producto = productoOpt.get();
+            logger.info("Producto {} encontrado: {}", productoId, producto.getNombre());
+
+            return IntegridadResponseDTO.builder()
+                    .entidad("ProductoAgricola")
+                    .id(productoId)
+                    .existe(true)
+                    .nombre(producto.getNombre())
+                    .build();
+        } else {
+            logger.warn("Producto {} no encontrado", productoId);
+
+            return IntegridadResponseDTO.builder()
+                    .entidad("ProductoAgricola")
+                    .id(productoId)
+                    .existe(false)
+                    .nombre(null)
+                    .build();
+        }
     }
 
     private void validarProducto(ProductoAgricola producto) {

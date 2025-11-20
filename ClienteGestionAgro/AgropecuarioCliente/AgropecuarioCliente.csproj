@@ -36,6 +36,7 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -145,8 +146,45 @@
     <Compile Include="Forms\FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormCrearInsumo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCrearInsumo.Designer.cs">
+      <DependentUpon>FormCrearInsumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormBuscarInsumo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormBuscarInsumo.Designer.cs">
+      <DependentUpon>FormBuscarInsumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormListarInsumos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormListarInsumos.Designer.cs">
+      <DependentUpon>FormListarInsumos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormActualizarInsumo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormActualizarInsumo.Designer.cs">
+      <DependentUpon>FormActualizarInsumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormEliminarInsumo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEliminarInsumo.Designer.cs">
+      <DependentUpon>FormEliminarInsumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormInsumosDeProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormInsumosDeProducto.Designer.cs">
+      <DependentUpon>FormInsumosDeProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="Models\Cosecha.cs" />
+    <Compile Include="Models\Insumo.cs" />
     <Compile Include="Models\ProductoAgricola.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

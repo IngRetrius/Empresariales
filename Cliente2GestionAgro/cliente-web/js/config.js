@@ -78,6 +78,28 @@ const CONFIG = {
         'Arenoso',
         'Limoso'
     ],
+
+    // ===== TIPOS DE INSUMO =====
+    TIPOS_INSUMO: [
+        'FERTILIZANTE',
+        'SEMILLA',
+        'PESTICIDA',
+        'HERRAMIENTA',
+        'HERBICIDA',
+        'FUNGICIDA',
+        'ABONO_ORGANICO',
+        'RIEGO'
+    ],
+
+    // ===== UNIDADES DE MEDIDA =====
+    UNIDADES_MEDIDA: [
+        'Kilogramos',
+        'Litros',
+        'Unidades',
+        'Toneladas',
+        'Bultos',
+        'Galones'
+    ],
     
     // ===== VALIDACIONES =====
     VALIDACIONES: {
@@ -88,7 +110,9 @@ const CONFIG = {
         MIN_PRECIO: 100,
         MAX_PRECIO: 1000000,
         MIN_TRABAJADORES: 1,
-        MAX_TRABAJADORES: 100
+        MAX_TRABAJADORES: 100,
+        MIN_COSTO_UNITARIO: 1,
+        MAX_COSTO_UNITARIO: 10000000
     },
     
     // ===== PAGINACIÓN =====
@@ -128,6 +152,16 @@ const CONFIG = {
         ERROR_ELIMINAR_COSECHA: 'Error al eliminar la cosecha',
         ERROR_CARGAR_COSECHAS: 'Error al cargar las cosechas',
         COSECHA_NO_ENCONTRADA: 'Cosecha no encontrada',
+
+        // Insumos
+        INSUMO_CREADO: 'Insumo creado exitosamente',
+        INSUMO_ACTUALIZADO: 'Insumo actualizado exitosamente',
+        INSUMO_ELIMINADO: 'Insumo eliminado exitosamente',
+        ERROR_CREAR_INSUMO: 'Error al crear el insumo',
+        ERROR_ACTUALIZAR_INSUMO: 'Error al actualizar el insumo',
+        ERROR_ELIMINAR_INSUMO: 'Error al eliminar el insumo',
+        ERROR_CARGAR_INSUMOS: 'Error al cargar los insumos',
+        INSUMO_NO_ENCONTRADO: 'Insumo no encontrado',
         
         // Validaciones
         CAMPOS_REQUERIDOS: 'Por favor complete todos los campos obligatorios',
@@ -177,7 +211,15 @@ const CONFIG = {
         // Maestro-Detalle
         PRODUCTO_COSECHAS: (productoId) => `/productos/${productoId}/cosechas`,
         PRODUCTO_COSECHA_POR_ID: (productoId, cosechaId) => `/productos/${productoId}/cosechas/${cosechaId}`,
-        PRODUCTO_ESTADISTICAS: (productoId) => `/productos/${productoId}/cosechas/estadisticas`
+        PRODUCTO_ESTADISTICAS: (productoId) => `/productos/${productoId}/cosechas/estadisticas`,
+
+        // Insumos (vía proxy en Microservicio A-B)
+        INSUMOS: '/insumos',
+        INSUMO_POR_ID: (id) => `/insumos/${id}`,
+        INSUMOS_POR_TIPO: (tipo) => `/insumos?tipo=${tipo}`,
+        INSUMOS_POR_PROVEEDOR: (proveedor) => `/insumos?proveedor=${proveedor}`,
+        INSUMOS_POR_PRODUCTO: (productoId) => `/insumos/producto/${productoId}`,
+        INSUMOS_COSTO_TOTAL: (productoId) => `/insumos/costo-total/${productoId}`
     }
 };
 
@@ -189,6 +231,8 @@ Object.freeze(CONFIG.CONDICIONES_CLIMATICAS);
 Object.freeze(CONFIG.TIPOS_CULTIVO);
 Object.freeze(CONFIG.TEMPORADAS);
 Object.freeze(CONFIG.TIPOS_SUELO);
+Object.freeze(CONFIG.TIPOS_INSUMO);
+Object.freeze(CONFIG.UNIDADES_MEDIDA);
 Object.freeze(CONFIG.VALIDACIONES);
 Object.freeze(CONFIG.MENSAJES);
 Object.freeze(CONFIG.FORMATO_FECHA);

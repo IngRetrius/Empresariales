@@ -5,6 +5,8 @@ import co.unibague.agropecuario.rest.exception.CosechaNotFoundException;
 import co.unibague.agropecuario.rest.exception.ProductoAlreadyExistsException;
 import co.unibague.agropecuario.rest.exception.ProductoNotFoundException;
 import co.unibague.agropecuario.rest.exception.ValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,26 @@ import java.util.List;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    /**
+     * Maneja errores 404 cuando se intenta acceder a recursos estáticos que no existen
+     * (como favicon.ico o rutas inválidas)
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleNoResourceFound(
+            NoResourceFoundException ex, WebRequest request) {
+        // Log con nivel DEBUG en vez de WARN para no ensuciar los logs
+        logger.debug("Recurso no encontrado: {}", ex.getMessage());
+
+        ErrorResponseDTO error = new ErrorResponseDTO(
+                "RESOURCE_NOT_FOUND",
+                "El recurso solicitado no existe",
+                request.getDescription(false).replace("uri=", "")
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
 
     @ExceptionHandler(ProductoNotFoundException.class)
     public ResponseEntity<ErrorResponseDTO> handleProductoNotFound(

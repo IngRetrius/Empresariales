@@ -1,230 +1,93 @@
-# Sistema Agropecuario - Microservicio REST
+# Microservicio A-B - Gestión de Productos Agrícolas y Cosechas
 
-API REST para la gestión de productos agrícolas desarrollada con Spring Boot.
+Universidad de Ibagué - Desarrollo de Aplicaciones Empresariales
+Tercer Proyecto 2025B
 
 ## Descripción
 
-Microservicio que expone operaciones CRUD para productos agrícolas a través de servicios web REST. Implementa una arquitectura en capas con persistencia en memoria.
+Microservicio para la gestión de productos agrícolas (maestro) y cosechas (detalle). Implementa una relación maestro-detalle con operaciones CRUD completas, validaciones de negocio, y comunicación con Microservicio C (Insumos).
 
-## Tecnologías
+## Características Principales
 
-- Java 17
-- Spring Boot 3.x
-- Maven
-- Jackson (JSON)
-- Bean Validation
-- Spring Web
+- **Base de Datos**: MySQL
+- **Puerto**: 8081
+- **Arquitectura**: Spring Boot 3.2.0 + JPA/Hibernate
+- **Comunicación**: WebClient (Spring WebFlux) para integración con Microservicio C
+- **Validación**: Jakarta Validation con reglas de negocio personalizadas
+- **Health Checks**: Spring Boot Actuator con indicadores personalizados
 
-## Requisitos Previos
+## Configuración con Variables de Entorno
 
-- Java JDK 17 o superior
-- Maven 3.6 o superior
-- Puerto 8081 disponible
+### Paso 1: Copiar archivo de ejemplo
 
-## Instalación
-
-1. Clonar el repositorio
 ```bash
-git clone [url-repositorio]
-cd agropecuario-rest
+cp .env.example .env
 ```
 
-2. Compilar el proyecto
-```bash
-mvn clean compile
-```
+### Paso 2: Editar valores en .env
 
+Ver sección "Variables de Entorno Disponibles" más abajo.
 
-## Ejecución
+### Paso 3: Cargar variables
 
-### Desarrollo
-```bash
-mvn spring-boot:run
-```
-
-### Producción
-```bash
-mvn clean package
-java -jar target/agropecuario-rest-1.0.0.jar
-```
-
-El servidor iniciará en: `http://localhost:8081`
-
-## Endpoints de la API
-
-### Productos
-- `GET /api/productos` - Listar todos los productos
-- `GET /api/productos/{id}` - Obtener producto por ID
-- `POST /api/productos` - Crear nuevo producto
-- `PUT /api/productos/{id}` - Actualizar producto
-- `DELETE /api/productos/{id}` - Eliminar producto
-
-### Búsquedas
-- `GET /api/productos?tipo={tipo}` - Filtrar por tipo de cultivo
-- `GET /api/productos?nombre={nombre}` - Buscar por nombre
-- `GET /api/productos?temporada={temporada}` - Filtrar por temporada
-- `GET /api/productos?hectareasMin={min}&hectareasMax={max}` - Rango hectáreas
-
-### Utilitarios
-- `GET /api/productos/estadisticas` - Estadísticas del sistema
-- `GET /actuator/health` - Estado del servicio
-
-## Ejemplo de Uso
-
-### Crear Producto
-```bash
-curl -X POST http://localhost:8081/api/productos \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nombre": "Café Premium",
-    "tipoCultivo": "Café",
-    "hectareasCultivadas": 5.5,
-    "cantidadProducida": 1200,
-    "precioVenta": 8500,
-    "costoProduccion": 2800000,
-    "temporada": "Cosecha principal",
-    "tipoSuelo": "Franco arcilloso",
-    "codigoFinca": "F001"
-  }'
-```
-
-### Respuesta Exitosa
-```json
-{
-  "success": true,
-  "message": "Producto creado exitosamente",
-  "data": {
-    "id": "AGR004",
-    "nombre": "Café Premium",
-    "tipoCultivo": "Café",
-    "hectareasCultivadas": 5.5,
-    "cantidadProducida": 1200,
-    "fechaProduccion": "2025-09-28T10:30:00",
-    "precioVenta": 8500.0,
-    "costoProduccion": 2800000.0,
-    "temporada": "Cosecha principal",
-    "tipoSuelo": "Franco arcilloso",
-    "codigoFinca": "F001"
-  },
-  "timestamp": "2025-09-28T10:30:00"
+**Windows (PowerShell)**:
+```powershell
+Get-Content .env | ForEach-Object {
+    if ($_ -match '^([^=]+)=(.*)$') {
+        [Environment]::SetEnvironmentVariable($matches[1], $matches[2], "Process")
+    }
 }
 ```
 
-## Estructura del Proyecto
-
-```
-src/main/java/co/unibague/agropecuario/rest/
-├── AgropecuarioRestApplication.java
-├── config/
-│   └── WebConfig.java
-├── controller/
-│   ├── GlobalExceptionHandler.java
-│   └── ProductoAgricolaController.java
-├── dto/
-│   ├── ApiResponseDTO.java
-│   ├── BusquedaRequestDTO.java
-│   ├── ErrorResponseDTO.java
-│   └── ProductoAgricolaDTO.java
-├── exception/
-│   ├── ProductoAlreadyExistsException.java
-│   ├── ProductoNotFoundException.java
-│   └── ValidationException.java
-├── model/
-│   └── ProductoAgricola.java
-├── repository/
-│   ├── ProductoAgricolaRepository.java
-│   └── impl/
-│       └── ProductoAgricolaRepositoryImpl.java
-├── service/
-│   ├── ProductoAgricolaService.java
-│   └── impl/
-│       └── ProductoAgricolaServiceImpl.java
-└── utils/
-    ├── Constantes.java
-    ├── ResponseBuilder.java
-    └── Validador.java
-```
-
-## Configuración
-
-### application.yml
-```yaml
-server:
-  port: 8081
-
-spring:
-  application:
-    name: agropecuario-rest-api
-  jackson:
-    time-zone: America/Bogota
-    date-format: yyyy-MM-dd'T'HH:mm:ss
-
-logging:
-  level:
-    co.unibague.agropecuario: DEBUG
-```
-
-## Datos de Prueba
-
-El sistema inicializa automáticamente con 3 productos:
-- AGR001: Café Arábica Premium
-- AGR002: Arroz Fedearroz 67
-- AGR003: Cacao Trinitario
-
-## Validaciones
-
-### Campos Obligatorios
-- nombre (2-100 caracteres)
-- tipoCultivo
-- hectareasCultivadas (0.1 - 10,000)
-- cantidadProducida (1 - 1,000,000)
-- precioVenta (100 - 1,000,000)
-- costoProduccion (100+)
-
-### Códigos de Estado HTTP
-- 200: Operación exitosa
-- 201: Recurso creado
-- 400: Datos inválidos
-- 404: Recurso no encontrado
-- 500: Error interno del servidor
-
-## CORS
-
-El microservicio está configurado para aceptar peticiones desde cualquier origen:
-- Métodos permitidos: GET, POST, PUT, DELETE, OPTIONS
-- Headers permitidos: *
-
-## Monitoreo
-
-### Health Check
+**Linux/Mac (Bash)**:
 ```bash
+export $(cat .env | xargs)
+```
+
+## Variables de Entorno Principales
+
+| Variable | Descripción | Valor por Defecto |
+|----------|-------------|-------------------|
+| `SERVER_PORT` | Puerto del microservicio | 8081 |
+| `MYSQL_HOST` | Host de MySQL | localhost |
+| `MYSQL_PORT` | Puerto de MySQL | 3306 |
+| `MYSQL_DATABASE` | Nombre de la BD | agropecuario_db |
+| `MYSQL_USER` | Usuario de la BD | agropecuario_user |
+| `MYSQL_PASSWORD` | Contraseña | agropecuario_password |
+| `MICROSERVICIO_C_URL` | URL Microservicio C | http://localhost:8082 |
+
+Ver .env.example para la lista completa de variables.
+
+## Instalación Rápida
+
+```bash
+# 1. Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tus valores
+
+# 2. Compilar
+mvn clean install
+
+# 3. Ejecutar
+mvn spring-boot:run
+```
+
+## Verificar Instalación
+
+```bash
+# Health check
 curl http://localhost:8081/actuator/health
+
+# Listar productos
+curl http://localhost:8081/api/productos
 ```
 
-### Estadísticas
-```bash
-curl http://localhost:8081/api/productos/estadisticas
-```
+## Documentación Completa
 
-## Desarrollo
+Ver archivo completo en el repositorio para:
+- API REST endpoints
+- Ejemplos de uso
+- Troubleshooting
+- Configuración avanzada
+- Integración con Microservicio C
 
-### Agregar Nuevos Endpoints
-1. Crear método en `ProductoAgricolaController`
-2. Implementar lógica en `ProductoAgricolaService`
-3. Actualizar repository si es necesario
-
-### Cambiar Persistencia
-1. Implementar nueva clase repository
-2. Configurar datasource en application.yml
-3. Agregar dependencias JPA/Hibernate en pom.xml
-
-## Contribución
-
-Universidad de Ibagué - Facultad de Ingeniería  
-Desarrollo de Aplicaciones Empresariales  
-Segundo Taller 2025B
-Juan Camilo Perea Possos
-
-## Licencia
-
-Proyecto académico - Universidad de Ibagué

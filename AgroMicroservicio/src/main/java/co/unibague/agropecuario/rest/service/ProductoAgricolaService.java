@@ -1,5 +1,6 @@
 package co.unibague.agropecuario.rest.service;
 
+import co.unibague.agropecuario.rest.dto.IntegridadResponseDTO;
 import co.unibague.agropecuario.rest.model.ProductoAgricola;
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +18,7 @@ public interface ProductoAgricolaService {
     boolean eliminarProducto(String id);
     boolean existeProducto(String id);
     int contarProductos();
+
+    // Métodos de integridad referencial (Etapa 2)
+    IntegridadResponseDTO verificarExistenciaProducto(String productoId);
 }
